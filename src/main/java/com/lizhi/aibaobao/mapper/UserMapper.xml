@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lizhi.aibaobao.dao.UserDao">
+
+    <!-- 添加缓存,可以输出日志 -->
+    <!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+
+    <!-- 添加缓存,不输出日志 -->
+    <!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+    
+    <insert id="insertUser" parameterType="UM">
+        INSERT USER(username,password) value(#{userName},#{password})
+    </insert>
+    
+    <delete id="deleteUser" parameterType="UM">
+        DELETE USER 
+        <where>
+			<if test="id != null and id > 0">
+				and id=#{id}
+			</if>
+			<if test="userName != null and userName !=''">
+				and username=#{userName}
+			</if>
+			<if test="password != null and password !=''">
+				and password = #{password}
+			</if>
+		</where>
+    </delete>
+    
+    <update id="updateUser" parameterType="UM">
+        update user 
+        <set>
+			<if test="userName != null and userName !=''">
+				username=#{userName},
+			</if>
+			<if test="password != null and password !=''">
+				password = #{password}
+			</if>
+        </set>
+        where id=#{id}
+    </update>
+    
+    <select id="getByCondition" parameterType="UM" resultType="UM">
+        select * from user
+		<where>
+			<if test="id != null and id > 0">
+				and id=#{id}
+			</if>
+			<if test="userName != null and userName !=''">
+				and username=#{userName}
+			</if>
+			<if test="password != null and password !=''">
+				and password = #{password}
+			</if>
+		</where>
+    </select>
+    
+	<select id="getByConditionPage" parameterType="UQM" resultType="UM">
+		select * from user
+		<where>
+			<if test="id != null and id > 0">
+				and id=#{id}
+			</if>
+			<if test="userName != null and userName !=''">
+				and username=#{userName}
+			</if>
+			<if test="password != null and password !=''">
+				and password = #{password}
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="logDir" value="../aibaobao-log" />
+	<appender name="A1" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>%-20(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{80}- %msg%n</Pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+	<appender name="C"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<Pattern>%-20(%d [%thread]) %-5level %logger{80} -%msg%n</Pattern>
+		</encoder>
+		<file>${logDir}/aibaobao.log</file>
+	</appender>
+	<!-- 非错误级日志 -->
+	 <logger name="java.sql.Connection" level="INFO" />
+	<logger name="java.sql.Statement"  level="INFO" />
+ 	<logger name="java.sql.CallableStatement"  level="INFO" />
+ 	<logger name="java.sql.PreparedStatement" level="INFO" />
+	<root level="INFO">
+		<appender-ref ref="A1" />
+		<appender-ref ref="C" />
+	</root>
+</configuration>

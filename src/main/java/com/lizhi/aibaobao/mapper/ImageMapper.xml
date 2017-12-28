@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lizhi.aibaobao.dao.ImageDao">
+
+    <!-- 添加缓存,可以输出日志 -->
+    <!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+
+    <!-- 添加缓存,不输出日志 -->
+    <!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+    
+    <insert id="insertImage" parameterType="IM">
+        INSERT image(name,url,date,user_id) value(#{name},#{url},#{date},#{userId})
+    </insert>
+    
+    <delete id="deleteImage" parameterType="IM">
+        DELETE image 
+        <where>
+			<if test="id != null and id > 0">
+				and id=#{id}
+			</if>
+			<if test="name != null and name !=''">
+				and name=#{name}
+			</if>
+			<if test="url != null and url !=''">
+				and url = #{url}
+			</if>
+			<if test="date != null and date !=''">
+				and date=#{date}
+			</if>
+			<if test="userId != null and userId !=''">
+				and user_id = #{userId}
+			</if>
+		</where>
+    </delete>
+    <update id="updateImage" parameterType="IM">
+        update image 
+        <set>
+			<if test="name != null and name !=''">
+				and name=#{name},
+			</if>
+			<if test="url != null and url !=''">
+				and url = #{url},
+			</if>
+			<if test="date != null and date !=''">
+				and date=#{date},
+			</if>
+			<if test="userId != null and userId !=''">
+				and user_id = #{userId}
+			</if>
+        </set>
+        where id=#{id}
+    </update>
+    
+    <select id="getByCondition" parameterType="IM" resultType="IM">
+        select * from image
+		<where>
+			<if test="id != null and id > 0">
+				and id=#{id}
+			</if>
+			<if test="name != null and name !=''">
+				and name=#{name}
+			</if>
+			<if test="url != null and url !=''">
+				and url = #{url}
+			</if>
+			<if test="date != null and date !=''">
+				and date=#{date}
+			</if>
+			<if test="userId != null and userId !=''">
+				and user_id = #{userId}
+			</if>
+		</where>
+    </select>
+    
+	<select id="getByConditionPage" parameterType="IQM" resultType="IM">
+		select * from image
+		<where>
+			<if test="id != null and id > 0">
+				and id=#{id}
+			</if>
+			<if test="name != null and name !=''">
+				and name=#{name}
+			</if>
+			<if test="url != null and url !=''">
+				and url = #{url}
+			</if>
+			<if test="date != null and date !=''">
+				and date=#{date}
+			</if>
+			<if test="userId != null and userId !=''">
+				and user_id = #{userId}
+			</if>
+		</where>
+	</select>
+</mapper>
